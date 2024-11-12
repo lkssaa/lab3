@@ -74,8 +74,8 @@ namespace _aaa
             {
                 for (int j = 0; j < n; j++)
                 {
-                    if (i > j) matrix2[i, j] = rand.Next(-4500, 45676) / 1000;
-                    else matrix2[i, j] = rand.Next(-100000, 100001) / 1000;
+                    if (i > j) matrix2[i, j] = (double)rand.Next(-4500, 45676) / 1000;
+                    else matrix2[i, j] = (double)rand.Next(-100000, 100001) / 1000;
                 }
             }
             for (int i = 0; i < n; i++)
@@ -147,7 +147,7 @@ namespace _aaa
                         {
                             for (int j1 = 0; j1 < m.GetLength(1); j1++)
                             {
-                                if (m[i1, j1] == m[i, j] && (i1!=i && j1!=j))
+                                if (m[i1, j1] == m[i, j] &&( i1!=i || j1!=j))
                                 {
                                     current_min = m[i, j];
                                 }
