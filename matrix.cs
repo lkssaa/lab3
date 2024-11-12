@@ -134,7 +134,7 @@ namespace _aaa
 
         }
 
-        public double min_repeat(double[,] m)
+        private double min_repeat(double[,] m)
         {
             double current_min = 9999;
             for (int i = 0; i < m.GetLength(0); i++)
@@ -147,7 +147,7 @@ namespace _aaa
                         {
                             for (int j1 = 0; j1 < m.GetLength(1); j1++)
                             {
-                                if (m[i1, j1] == m[i, j])
+                                if (m[i1, j1] == m[i, j] && (i1!=i && j1!=j))
                                 {
                                     current_min = m[i, j];
                                 }
@@ -156,7 +156,7 @@ namespace _aaa
                     }
                 }
             }
-            if (current_min == 9999) Console.WriteLine("пустой массив");
+            if (current_min == 9999) Console.WriteLine("нет повторяющихся");
             return current_min;
         }
 
