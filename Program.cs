@@ -22,7 +22,8 @@ class Program
                     Matrix b = new Matrix(false, true);
                     Matrix c = new Matrix(false, true);
                     
-                    Matrix d = a + 2 * b - 3 * c.transpose();
+                    Console.WriteLine((a + 2 * b - 3 * c.transpose()).ToString());
+
                     break;
                 case 4:
                     filetask.gen(4, 15);
