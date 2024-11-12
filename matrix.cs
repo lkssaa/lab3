@@ -1,15 +1,46 @@
-﻿using System;
+using System;
 using System.ComponentModel.Design;
 namespace _aaa
 {
     public class Matrix
     {
-        private double[,] matrix1, matrix2, matrix3;
+        public double[,] matrix1, matrix2, matrix3;
 
 
 
-        public Matrix()
+        public Matrix(bool all_three = false, bool print = false)
         {
+            if (!all_three)
+            {
+                matrix1 = new double[2, 2];
+                Random rnd = new Random();
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < 2; j++)
+                    {
+                        matrix1[i, j] = rnd.Next(-100, 101);
+                    }
+
+                }
+                if (print)
+                    {
+                        for (int i2 = 0; i2 < 2; i2++)
+                        {
+                            for (int i1 = 0; i1 < 2; i1++)
+                            {
+                                Console.Write($"{matrix1[i2, i1],10:F3}|");
+                            }
+
+                            Console.Write("\n");
+                        }
+                        Console.Write("\n");
+                        return;
+                    }
+                    return;
+                
+            }
+
+
 
             //перывй массив
             int n, m;
@@ -51,7 +82,7 @@ namespace _aaa
             {
                 for (int j = 0; j < n; j++)
                 {
-                    Console.Write($"{matrix2[i, j],7:F3}|");
+                    Console.Write($"{matrix2[i, j],10:F3}|");
                 }
                 Console.WriteLine();
             }
@@ -125,40 +156,122 @@ namespace _aaa
                     }
                 }
             }
+            if (current_min == 9999) Console.WriteLine("пустой массив");
             return current_min;
         }
 
-        public static double[,] expr(double[,] A, double[,] B, double[,] C)
-        {
-            int rowsA = A.GetLength(0);
-            int colsA = A.GetLength(1);
-            int rowsB = B.GetLength(0);
-            int colsB = B.GetLength(1);
-            int rowsC = C.GetLength(0);
-            int colsC = C.GetLength(1);
 
-            if (rowsA != rowsB || colsA != colsB || rowsB != rowsC || colsB != colsC)
+
+
+
+
+        public static Matrix operator +(Matrix A, Matrix B)
+        {
+            int rowsA = A.matrix1.GetLength(0);
+            int colsA = A.matrix1.GetLength(1);
+            int rowsB = B.matrix1.GetLength(0);
+            int colsB = B.matrix1.GetLength(1);
+
+            if (rowsA != rowsB || colsA != colsB)
             {
                 throw new ArgumentException("Матрицы должны иметь одинаковые размеры");
             }
 
-            var result = new double[rowsA, colsC];
+            var result = new double[rowsA, colsA];
 
             for (int i = 0; i < rowsA; i++)
             {
-                for (int j = 0; j < colsC; j++)
-                {
                     for (int k = 0; k < colsA; k++)
                     {
-                        result[i, j] += A[i, k] + 2 * B[i, k] - 3 * C[k, j];
+                        result[i, k] = A.matrix1[i, k] + B.matrix1[i, k];
                     }
                 }
+            Matrix a = new Matrix();
+            a.matrix1 = result;
+            return a;
             }
 
-            return result;
+        public static Matrix operator -(Matrix A, Matrix B)
+        {
+            int rowsA = A.matrix1.GetLength(0);
+            int colsA = A.matrix1.GetLength(1);
+            int rowsB = B.matrix1.GetLength(0);
+            int colsB = B.matrix1.GetLength(1);
+
+            if (rowsA != rowsB || colsA != colsB)
+            {
+                throw new ArgumentException("Матрицы должны иметь одинаковые размеры");
+            }
+
+            var result = new double[rowsA, colsA];
+
+            for (int i = 0; i < rowsA; i++)
+            {
+                for (int k = 0; k < colsA; k++)
+                {
+                    result[i, k] = A.matrix1[i, k] - B.matrix1[i, k];
+                }
+            }
+            Matrix a = new Matrix();
+            a.matrix1 = result;
+            return a;
         }
+
+        public static Matrix operator *(double m, Matrix A)
+        {
+            int rowsA = A.matrix1.GetLength(0);
+            int colsA = A.matrix1.GetLength(1);
+
+            var result = new double[rowsA, colsA];
+
+            for (int i = 0; i < rowsA; i++)
+            {
+                for (int k = 0; k < colsA; k++)
+                {
+                    result[i, k] = m * A.matrix1[i, k];
+                }
+            }
+            Matrix a = new Matrix();
+            a.matrix1 = result;
+            return a;
+        }
+
+        public Matrix transpose()
+        {
+            int rowsA = matrix1.GetLength(0);
+            int colsA = matrix1.GetLength(1);
+
+            var result = new double[rowsA, colsA];
+
+            for (int i = 0; i < rowsA; i++)
+            {
+                for (int k = 0; k < colsA; k++)
+                {
+                    result[i, k] = matrix1[k, i];
+                }
+            }
+            Matrix a = new Matrix();
+            a.matrix1 = result;
+            return a;
+        }
+
+        public override string ToString()
+        {
+            string a = "";
+            for (int i = 0; i < matrix1.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix1.GetLength(1); j++)
+                {
+                    a+=$"{matrix1[i, j],10:F3}|";
+                }
+                a += "\n";
+            }
+            return a;
+        }
+
+    }
 
 
     }
-}
+
 
