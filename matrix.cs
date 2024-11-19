@@ -4,7 +4,7 @@ namespace _aaa
 {
     public class Matrix
     {
-        public double[,] matrix1, matrix2, matrix3;
+        private double[,] matrix1, matrix2, matrix3;
 
 
 
@@ -23,30 +23,28 @@ namespace _aaa
 
                 }
                 if (print)
+                {
+                    for (int i2 = 0; i2 < 2; i2++)
                     {
-                        for (int i2 = 0; i2 < 2; i2++)
+                        for (int i1 = 0; i1 < 2; i1++)
                         {
-                            for (int i1 = 0; i1 < 2; i1++)
-                            {
-                                Console.Write($"{matrix1[i2, i1],10:F3}|");
-                            }
-
-                            Console.Write("\n");
+                            Console.Write($"{matrix1[i2, i1],10:F3}|");
                         }
+
                         Console.Write("\n");
-                        return;
                     }
+                    Console.Write("\n");
                     return;
-                
+                }
+                return;
+
             }
+        }
 
+        public Matrix(int n, int m) {
 
+            Console.WriteLine("введите элементы массива");
 
-            //перывй массив
-            int n, m;
-            Console.WriteLine("введите n и m для массива n*m, затем его элементы");
-            n = Convert.ToInt32(Console.ReadLine());
-            m = Convert.ToInt32(Console.ReadLine());
             matrix1 = new double[n, m];
             for (int i = 0; i < m; i++)
             {
@@ -64,34 +62,36 @@ namespace _aaa
                 Console.WriteLine();
             }
             Console.WriteLine($"\nминимальный повторяющийся элемент - {min_repeat(matrix1)}");
+        }
 
-            //второй массив
-            Console.WriteLine("введите n для массива n*n");
-            n = Convert.ToInt32(Console.ReadLine());
-            Random rand = new Random();
-            matrix2 = new double[n, n];
-            for (int i = 0; i < n; i++)
+        public Matrix(int n, bool third = false)
+        {
+            if (!third)
             {
-                for (int j = 0; j < n; j++)
+                Random rand = new Random();
+                matrix2 = new double[n, n];
+                for (int i = 0; i < n; i++)
                 {
-                    if (i > j) matrix2[i, j] = (double)rand.Next(-4500, 45676) / 1000;
-                    else matrix2[i, j] = (double)rand.Next(-100000, 100001) / 1000;
+                    for (int j = 0; j < n; j++)
+                    {
+                        if (i > j) matrix2[i, j] = (double)rand.Next(-4500, 45676) / 1000;
+                        else matrix2[i, j] = (double)rand.Next(-100000, 100001) / 1000;
+                    }
                 }
-            }
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
+                for (int i = 0; i < n; i++)
                 {
-                    Console.Write($"{matrix2[i, j],10:F3}|");
+                    for (int j = 0; j < n; j++)
+                    {
+                        Console.Write($"{matrix2[i, j],10:F3}|");
+                    }
+                    Console.WriteLine();
                 }
-                Console.WriteLine();
+                Console.WriteLine($"\nминимальный повторяющийся элемент - {min_repeat(matrix2)}");
             }
-            Console.WriteLine($"\nминимальный повторяющийся элемент - {min_repeat(matrix2)}");
+            else { 
 
-            //третий массив
             int n1, m1;
-            Console.WriteLine("введите n для массива n*n");
-            n = Convert.ToInt32(Console.ReadLine());
+
             matrix3 = new double[n, n];
             int dir = 1;
             int c = 1;
@@ -132,7 +132,7 @@ namespace _aaa
             }
 
 
-        }
+        } }
 
         private double min_repeat(double[,] m)
         {
