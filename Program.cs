@@ -15,9 +15,21 @@ class Program
             switch (Convert.ToInt32(Console.ReadLine()))
             {
                 case 1 or 2:
-                    Matrix m = new Matrix(true);
+                    int n, m;
+                    Console.WriteLine("введите n и m для массива n*m");
+                    n = Convert.ToInt32(Console.ReadLine());
+                    m = Convert.ToInt32(Console.ReadLine());
+                    Matrix m1 = new Matrix(n, m);
+                    Console.WriteLine("введите n для массива n*n");
+                    n = Convert.ToInt32(Console.ReadLine());
+                    Matrix m2 = new Matrix(n);
+                    Console.WriteLine("введите n для массива n*n");
+                    n = Convert.ToInt32(Console.ReadLine());
+                    Matrix m3 = new Matrix(n, true);
+
                     break;
                 case 3:
+
                     Matrix a = new Matrix(false, true);
                     Matrix b = new Matrix(false, true);
                     Matrix c = new Matrix(false, true);
